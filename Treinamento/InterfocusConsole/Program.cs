@@ -128,7 +128,7 @@ while (true)
                 Codigo = codigo
             };
 
-            if (servico.Cadastrar(aluno))
+            if (servico.Cadastrar(aluno, out _))
             {
                 Console.WriteLine("Aluno cadastrado com sucesso!");
             }
@@ -162,7 +162,7 @@ while (true)
                 //setnome
                 var oldNome = alunoPesquisado.Nome;
                 alunoPesquisado.Nome = novoNome;
-                if (!AlunoService.Validar(alunoPesquisado))
+                if (!AlunoService.Validar(alunoPesquisado, out _))
                 {
                     alunoPesquisado.Nome = oldNome;
                 }

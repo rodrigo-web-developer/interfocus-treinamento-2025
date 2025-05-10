@@ -6,9 +6,9 @@ namespace InterfocusConsole
     {
         private static List<Aluno> list = new List<Aluno>();
 
-        public bool Cadastrar(Aluno aluno)
+        public bool Cadastrar(Aluno aluno, out List<MensagemErro> mensagens)
         {
-            var valido = Validar(aluno);
+            var valido = Validar(aluno, out mensagens);
             if (valido)
             {
                 list.Add(aluno);
@@ -17,7 +17,7 @@ namespace InterfocusConsole
             return false;
         }
 
-        public static bool Validar(Aluno aluno)
+        public static bool Validar(Aluno aluno, out List<MensagemErro> mensagens)
         {
             var validationContext = new ValidationContext(aluno);
             var erros = new List<ValidationResult>();
@@ -25,8 +25,14 @@ namespace InterfocusConsole
                 validationContext,
                 erros,
                 true);
+            mensagens = new List<MensagemErro>();
             foreach (var erro in erros)
             {
+                var mensagem = new MensagemErro(
+                    erro.MemberNames.First(),
+                    erro.ErrorMessage);
+
+                mensagens.Add(mensagem);
                 Console.WriteLine("{0}: {1}",
                     erro.MemberNames.First(),
                     erro.ErrorMessage);
@@ -58,6 +64,25 @@ namespace InterfocusConsole
         public Aluno ConsultarPorCodigo(string codigo)
         {
             return list.FirstOrDefault(a => a.Codigo == codigo);
+        }
+
+        public Aluno Editar(Aluno aluno)
+        {
+            var existente = ConsultarPorCodigo(aluno.Codigo);
+
+            if (existente == null)
+            {
+                return null;
+            }
+            existente.Nome = aluno.Nome;
+            return existente;
+        }
+
+        public Aluno Deletar(string codigo)
+        {
+            var existente = ConsultarPorCodigo(codigo);
+            list.Remove(existente);
+            return existente;
         }
     }
 }
