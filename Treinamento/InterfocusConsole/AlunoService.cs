@@ -4,6 +4,10 @@ namespace InterfocusConsole
 {
     public class AlunoService
     {
+        public AlunoService()
+        {
+            
+        }
         private static List<Aluno> list = new List<Aluno>();
 
         public bool Cadastrar(Aluno aluno, out List<MensagemErro> mensagens)
