@@ -1,8 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using InterfocusConsole;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
 Console.WriteLine("Hello, World!");
 
@@ -82,7 +80,6 @@ Console.WriteLine(
         .DayOfWeek,
     data.Hour);
 
-
 var copia = i;
 
 copia += 1;
@@ -92,8 +89,15 @@ copiaArray.Add(5); // ambas variaveis foram modificadas
 Console.WriteLine(copia);
 Console.WriteLine(i);
 
-var alunos = new List<Aluno>();
 // LINQ - Language Integrated Query
+
+//objeto - instancia de uma classe
+var servico = new AlunoService();
+var servico2 = new AlunoService();
+var servico3 = new AlunoService();
+var servico4 = new AlunoService();
+
+
 while (true)
 {
     Console.WriteLine("1 - cadastrar");
@@ -123,9 +127,10 @@ while (true)
                 Nome = nome,
                 Codigo = codigo
             };
-            if (ValidarAluno(aluno))
+
+            if (servico.Cadastrar(aluno))
             {
-                alunos.Add(aluno);
+                Console.WriteLine("Aluno cadastrado com sucesso!");
             }
             else
             {
@@ -133,38 +138,18 @@ while (true)
             }
             break;
         case 2:
-            PrintarLista(alunos);
+            Metodos.PrintarLista(servico4.Consultar(), "Aluno: ");
             break;
         case 3: // label
             var pesquisa = Console.ReadLine();
-            var resultado = new List<string>();
-            foreach (var item in alunos)
-            {
-                if (item.Nome.Contains(pesquisa))
-                {
-                    resultado.Add(item.Nome);
-                }
-            }
-            for (int index = 0; index < resultado.Count; index++)
-            {
-                // ordena
-            }
-            // resultado = X { item / item contains "pesquisa" }
-            var resultado2 = alunos
-                .Where(item => item.Nome.Contains(pesquisa))
-                .OrderBy(item => item.Nome)
-                .Take(10)
-                .ToList();
-
-            PrintarLista(resultado2);
+            var resultado = servico2.Consultar(pesquisa);
+            Metodos.PrintarLista(resultado, true);
             break;
         case 4:
             Console.Write("Código: ");
             var codigoBusca = Console.ReadLine();
 
-            var alunoPesquisado = alunos
-                .Where(e => e.Codigo == codigoBusca)
-                .FirstOrDefault();
+            var alunoPesquisado = servico3.ConsultarPorCodigo(codigoBusca);
 
             if (alunoPesquisado == null)
             {
@@ -175,19 +160,16 @@ while (true)
                 Console.Write("Nome: ");
                 var novoNome = Console.ReadLine();
                 //setnome
+                var oldNome = alunoPesquisado.Nome;
                 alunoPesquisado.Nome = novoNome;
+                if (!AlunoService.Validar(alunoPesquisado))
+                {
+                    alunoPesquisado.Nome = oldNome;
+                }
                 //alunoPesquisado.DataCadastro = DateTime.Now;
                 Console.WriteLine(alunoPesquisado.DataCadastro);
             }
             break;
-    }
-}
-
-static void PrintarLista(List<Aluno> lista)
-{
-    foreach (var item in lista)
-    {
-        Console.WriteLine(item.GetPrintMessage());
     }
 }
 
@@ -207,26 +189,19 @@ static int LerInteiro()
     //return int.TryParse(inteiro, out int valor) ? valor : 0;
 }
 
-static bool ValidarAluno(Aluno aluno)
+class Metodos
 {
-    var validationContext = new ValidationContext(aluno);
-    var erros = new List<ValidationResult>();
-    var validation = Validator.TryValidateObject(aluno, 
-        validationContext, 
-        erros,
-        true);
-    foreach (var erro in erros)
+    public static void PrintarLista(List<Aluno> lista, string prefix = "")
     {
-        Console.WriteLine("{0}: {1}", erro.MemberNames.First(), erro.ErrorMessage);
+        foreach (var item in lista)
+        {
+            Console.WriteLine(prefix + item.GetPrintMessage());
+        }
     }
-    //throw new Exception("dados invalidos!!!!");
-    return validation;
-}
 
-//class Program
-//{
-//    public static void Main()
-//    {
-//        Console.WriteLine("Hello world!")
-//    }
-//}
+    public static void PrintarLista(List<Aluno> alunos, bool header)
+    {
+        Console.WriteLine("codigo - nome - desconto");
+        PrintarLista(alunos);
+    }
+}
