@@ -1,35 +1,49 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using InterfocusConsole.Enums;
+using InterfocusConsole.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace InterfocusConsole
+namespace InterfocusConsole.Services
 {
-    public class AlunoService
+    public class CursoService
     {
-        public AlunoService()
+        public CursoService()
         {
-            
-        }
-        private static List<Aluno> list = new List<Aluno>();
 
-        public bool Cadastrar(Aluno aluno, out List<MensagemErro> mensagens)
+        }
+        private static List<Curso> list = new List<Curso>();
+
+        public bool Cadastrar(Curso Curso, out List<MensagemErro> mensagens)
         {
-            var valido = Validar(aluno, out mensagens);
+            var valido = Validar(Curso, out mensagens);
             if (valido)
             {
-                list.Add(aluno);
+                list.Add(Curso);
                 return true;
             }
             return false;
         }
 
-        public static bool Validar(Aluno aluno, out List<MensagemErro> mensagens)
+        public static bool Validar(Curso curso, out List<MensagemErro> mensagens)
         {
-            var validationContext = new ValidationContext(aluno);
+            var validationContext = new ValidationContext(curso);
             var erros = new List<ValidationResult>();
-            var validation = Validator.TryValidateObject(aluno,
+            var validation = Validator.TryValidateObject(curso,
                 validationContext,
                 erros,
                 true);
             mensagens = new List<MensagemErro>();
+
+            if (!Enum.IsDefined<NivelCurso>(curso.Nivel))
+            {
+                var mensagem = new MensagemErro(
+                    "nivel",
+                    "Nível inválido, deve ser 0, 1 ou 2.");
+
+                mensagens.Add(mensagem);
+                validation = false;
+            }
+
             foreach (var erro in erros)
             {
                 var mensagem = new MensagemErro(
@@ -45,14 +59,14 @@ namespace InterfocusConsole
             return validation;
         }
 
-        public List<Aluno> Consultar()
+        public List<Curso> Consultar()
         {
             return list.ToList();
         }
 
-        public List<Aluno> Consultar(string pesquisa)
+        public List<Curso> Consultar(string pesquisa)
         {
-            bool FiltraLista(Aluno item)
+            bool FiltraLista(Curso item)
             {
                 return item.Nome.Contains(pesquisa);
             }
@@ -65,26 +79,26 @@ namespace InterfocusConsole
             return resultado2;
         }
 
-        public Aluno ConsultarPorCodigo(string codigo)
+        public Curso ConsultarPorCodigo(long id)
         {
-            return list.FirstOrDefault(a => a.Codigo == codigo);
+            return list.FirstOrDefault(a => a.Id == id);
         }
 
-        public Aluno Editar(Aluno aluno)
+        public Curso Editar(Curso Curso)
         {
-            var existente = ConsultarPorCodigo(aluno.Codigo);
+            var existente = ConsultarPorCodigo(Curso.Id);
 
             if (existente == null)
             {
                 return null;
             }
-            existente.Nome = aluno.Nome;
+            existente.Nome = Curso.Nome;
             return existente;
         }
 
-        public Aluno Deletar(string codigo)
+        public Curso Deletar(int id)
         {
-            var existente = ConsultarPorCodigo(codigo);
+            var existente = ConsultarPorCodigo(id);
             list.Remove(existente);
             return existente;
         }

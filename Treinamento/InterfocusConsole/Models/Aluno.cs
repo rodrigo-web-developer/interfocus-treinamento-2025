@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using InterfocusConsole.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace InterfocusConsole
+namespace InterfocusConsole.Models
 {
-    public class Aluno
+    public class Aluno : INomeavel, IEntidade
     {
         //private string nome;
         //public string GetNome()
@@ -18,8 +14,7 @@ namespace InterfocusConsole
         //{
         //    this.nome = nome;
         //}
-        [Required, StringLength(10, MinimumLength = 5)]
-        public string Codigo { get; set; }
+        public long Id { get; set; }
         [Required, MaxLength(50)]
         public string Nome { get; set; }
 
@@ -47,7 +42,7 @@ namespace InterfocusConsole
         public virtual string GetPrintMessage()
         {
             // getcodigo e getnome
-            return $"{Codigo} - {Nome}"; // f"" python
+            return $"{Id} - {Nome}"; // f"" python
         }
     }
 }

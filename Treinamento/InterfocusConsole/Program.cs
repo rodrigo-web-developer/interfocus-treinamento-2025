@@ -1,5 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using InterfocusConsole;
+using InterfocusConsole.Interfaces;
+using InterfocusConsole.Models;
+using InterfocusConsole.Services;
 using System.ComponentModel.DataAnnotations;
 
 Console.WriteLine("Hello, World!");
@@ -97,6 +100,10 @@ var servico2 = new AlunoService();
 var servico3 = new AlunoService();
 var servico4 = new AlunoService();
 
+// classes diferentes com mesma caracteristica ou comportamento
+Metodos.PrintNome(new Aluno());
+Metodos.PrintNome(new Curso());
+
 
 while (true)
 {
@@ -112,7 +119,7 @@ while (true)
             Console.Write("Nome: ");
             var nome = Console.ReadLine();
             Console.Write("Código: ");
-            var codigo = Console.ReadLine();
+            var codigo = LerInteiro();
 
             Console.Write("Desconto: ");
             var desconto = double.Parse(Console.ReadLine());
@@ -120,12 +127,12 @@ while (true)
             var aluno = desconto > 0 ? new Bolsista()
             {
                 Nome = nome,
-                Codigo = codigo,
+                Id = codigo,
                 Desconto = desconto
             } : new Aluno()
             {
                 Nome = nome,
-                Codigo = codigo
+                Id = codigo
             };
 
             if (servico.Cadastrar(aluno, out _))
@@ -147,7 +154,7 @@ while (true)
             break;
         case 4:
             Console.Write("Código: ");
-            var codigoBusca = Console.ReadLine();
+            var codigoBusca = LerInteiro();
 
             var alunoPesquisado = servico3.ConsultarPorCodigo(codigoBusca);
 
@@ -204,4 +211,11 @@ class Metodos
         Console.WriteLine("codigo - nome - desconto");
         PrintarLista(alunos);
     }
+
+    public static void PrintNome(INomeavel objeto)
+    {
+        Console.WriteLine(objeto.Nome);
+    }
 }
+
+

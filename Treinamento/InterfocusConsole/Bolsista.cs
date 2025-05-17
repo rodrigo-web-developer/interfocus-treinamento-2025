@@ -1,4 +1,6 @@
-﻿namespace InterfocusConsole
+﻿using InterfocusConsole.Models;
+
+namespace InterfocusConsole
 {
     public class Bolsista : Aluno
     {
@@ -6,7 +8,7 @@
 
         public override string GetPrintMessage()
         {
-            return $"{Codigo} - {Nome} ({Desconto}%)";
+            return $"{Id} - {Nome} ({Desconto}%)";
         }
     }
 }

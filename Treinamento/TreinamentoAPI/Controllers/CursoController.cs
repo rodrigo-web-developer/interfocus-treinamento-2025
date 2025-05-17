@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TreinamentoAPI.Controllers
 {
-    [Route("api/aluno")]
-    public class AlunoController : ControllerBase
+    [Route("api/[controller]")]
+    public class CursoController : ControllerBase
     {
-        private readonly AlunoService servico;
+        private readonly CursoService servico;
 
-        public AlunoController(AlunoService servico)
+        public CursoController(CursoService servico)
         {
             this.servico = servico;
         }
@@ -22,23 +22,23 @@ namespace TreinamentoAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Aluno aluno)
+        public IActionResult Post([FromBody] Curso Curso)
         {
-            // AlunoService, AlunoBusiness
+            // CursoService, CursoBusiness
             // controllers: camada de acesso
             // services: camada de negócio
             // repositories: camada de dados
-            if (servico.Cadastrar(aluno, out List<MensagemErro> erros))
+            if (servico.Cadastrar(Curso, out List<MensagemErro> erros))
             {
-                return Ok(aluno);
+                return Ok(Curso);
             }
             return UnprocessableEntity(erros);
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Aluno aluno)
+        public IActionResult Put([FromBody] Curso Curso)
         {
-            var resultado = servico.Editar(aluno);
+            var resultado = servico.Editar(Curso);
             if (resultado == null)
             {
                 return NotFound();
@@ -47,7 +47,7 @@ namespace TreinamentoAPI.Controllers
         }
 
         [HttpDelete("{codigo}")]
-        public IActionResult Delete(long codigo)
+        public IActionResult Delete(int codigo)
         {
             var resultado = servico.Deletar(codigo);
             if (resultado == null)

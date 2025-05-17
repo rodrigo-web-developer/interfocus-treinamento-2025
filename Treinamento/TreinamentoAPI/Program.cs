@@ -1,4 +1,4 @@
-using InterfocusConsole;
+using InterfocusConsole.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<AlunoService>();
+builder.Services.AddTransient<CursoService>();
 
 var app = builder.Build();
 
