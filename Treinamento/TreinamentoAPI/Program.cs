@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<AlunoService>();
 builder.Services.AddTransient<CursoService>();
+builder.Services.AddTransient<InscricaoService>();
 
 builder.Services.AddTransient<IRepository, RepositoryInMemory>();
 
