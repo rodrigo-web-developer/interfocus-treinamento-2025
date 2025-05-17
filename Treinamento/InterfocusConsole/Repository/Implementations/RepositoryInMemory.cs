@@ -5,6 +5,8 @@ namespace InterfocusConsole.Repository.Implementations
 {
     public class RepositoryInMemory : IRepository
     {
+        private static long contador = 10000;
+
         public static Dictionary<string, List<object>> Dados = 
             new Dictionary<string, List<object>>();
         public IQueryable<T> Consultar<T>()
@@ -38,6 +40,9 @@ namespace InterfocusConsole.Repository.Implementations
 
         public void Incluir(object model)
         {
+            var entidade = model as IEntidade;
+            entidade.Id = contador++;
+
             GetList(model).Add(model);
         }
 

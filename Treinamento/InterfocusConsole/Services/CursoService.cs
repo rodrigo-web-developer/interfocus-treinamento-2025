@@ -1,24 +1,26 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using InterfocusConsole.Enums;
 using InterfocusConsole.Models;
+using InterfocusConsole.Repository;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace InterfocusConsole.Services
 {
     public class CursoService
     {
-        public CursoService()
+        public CursoService(IRepository repository)
         {
-
+            this.repository = repository;
         }
-        private static List<Curso> list = new List<Curso>();
+
+        private readonly IRepository repository;
 
         public bool Cadastrar(Curso Curso, out List<MensagemErro> mensagens)
         {
             var valido = Validar(Curso, out mensagens);
             if (valido)
             {
-                list.Add(Curso);
+                repository.Incluir(Curso);
                 return true;
             }
             return false;
@@ -61,7 +63,7 @@ namespace InterfocusConsole.Services
 
         public List<Curso> Consultar()
         {
-            return list.ToList();
+            return repository.Consultar<Curso>().ToList();
         }
 
         public List<Curso> Consultar(string pesquisa)
@@ -71,7 +73,8 @@ namespace InterfocusConsole.Services
                 return item.Nome.Contains(pesquisa);
             }
             // lambda expression
-            var resultado2 = list
+            var resultado2 = repository
+                .Consultar<Curso>()
                 .Where(item => item.Nome.Contains(pesquisa))
                 .OrderBy(item => item.Nome)
                 .Take(10)
@@ -81,7 +84,7 @@ namespace InterfocusConsole.Services
 
         public Curso ConsultarPorCodigo(long id)
         {
-            return list.FirstOrDefault(a => a.Id == id);
+            return repository.ConsultarPorId<Curso>(id);
         }
 
         public Curso Editar(Curso Curso)
@@ -93,13 +96,15 @@ namespace InterfocusConsole.Services
                 return null;
             }
             existente.Nome = Curso.Nome;
+
+            repository.Salvar(existente);
             return existente;
         }
 
         public Curso Deletar(int id)
         {
             var existente = ConsultarPorCodigo(id);
-            list.Remove(existente);
+            repository.Excluir(existente);
             return existente;
         }
     }

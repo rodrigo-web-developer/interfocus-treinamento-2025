@@ -2,8 +2,8 @@
 using InterfocusConsole;
 using InterfocusConsole.Interfaces;
 using InterfocusConsole.Models;
+using InterfocusConsole.Repository.Implementations;
 using InterfocusConsole.Services;
-using System.ComponentModel.DataAnnotations;
 
 Console.WriteLine("Hello, World!");
 
@@ -95,10 +95,10 @@ Console.WriteLine(i);
 // LINQ - Language Integrated Query
 
 //objeto - instancia de uma classe
-var servico = new AlunoService();
-var servico2 = new AlunoService();
-var servico3 = new AlunoService();
-var servico4 = new AlunoService();
+var servico =  new AlunoService(new RepositoryInMemory());
+var servico2 = new AlunoService(new RepositoryInMemory());
+var servico3 = new AlunoService(new RepositoryInMemory());
+var servico4 = new AlunoService(new RepositoryInMemory());
 
 // classes diferentes com mesma caracteristica ou comportamento
 Metodos.PrintNome(new Aluno());

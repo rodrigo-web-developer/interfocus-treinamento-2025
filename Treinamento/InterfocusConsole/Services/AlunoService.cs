@@ -1,22 +1,24 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using InterfocusConsole.Models;
+using InterfocusConsole.Repository;
 
 namespace InterfocusConsole.Services
 {
     public class AlunoService
     {
-        public AlunoService()
+        private readonly IRepository repository;
+
+        public AlunoService(IRepository repository)
         {
-
+            this.repository = repository;
         }
-        private static List<Aluno> list = new List<Aluno>();
-
+        
         public bool Cadastrar(Aluno aluno, out List<MensagemErro> mensagens)
         {
             var valido = Validar(aluno, out mensagens);
             if (valido)
             {
-                list.Add(aluno);
+                repository.Incluir(aluno);
                 return true;
             }
             return false;
@@ -48,7 +50,7 @@ namespace InterfocusConsole.Services
 
         public List<Aluno> Consultar()
         {
-            return list.ToList();
+            return repository.Consultar<Aluno>().ToList();
         }
 
         public List<Aluno> Consultar(string pesquisa)
@@ -58,7 +60,8 @@ namespace InterfocusConsole.Services
                 return item.Nome.Contains(pesquisa);
             }
             // lambda expression
-            var resultado2 = list
+            var resultado2 = repository
+                .Consultar<Aluno>()
                 .Where(item => item.Nome.Contains(pesquisa))
                 .OrderBy(item => item.Nome)
                 .Take(10)
@@ -68,7 +71,7 @@ namespace InterfocusConsole.Services
 
         public Aluno ConsultarPorCodigo(long codigo)
         {
-            return list.FirstOrDefault(a => a.Id == codigo);
+            return repository.ConsultarPorId<Aluno>(codigo);
         }
 
         public Aluno Editar(Aluno aluno)
@@ -80,13 +83,14 @@ namespace InterfocusConsole.Services
                 return null;
             }
             existente.Nome = aluno.Nome;
+            repository.Salvar(existente);
             return existente;
         }
 
         public Aluno Deletar(long codigo)
         {
             var existente = ConsultarPorCodigo(codigo);
-            list.Remove(existente);
+            repository.Excluir(existente);
             return existente;
         }
     }

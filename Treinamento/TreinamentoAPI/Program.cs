@@ -1,3 +1,5 @@
+using InterfocusConsole.Repository;
+using InterfocusConsole.Repository.Implementations;
 using InterfocusConsole.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<AlunoService>();
 builder.Services.AddTransient<CursoService>();
+
+builder.Services.AddTransient<IRepository, RepositoryInMemory>();
 
 var app = builder.Build();
 
