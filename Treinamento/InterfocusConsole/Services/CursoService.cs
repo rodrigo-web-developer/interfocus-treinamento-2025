@@ -26,7 +26,7 @@ namespace InterfocusConsole.Services
             return false;
         }
 
-        public static bool Validar(Curso curso, out List<MensagemErro> mensagens)
+        public bool Validar(Curso curso, out List<MensagemErro> mensagens)
         {
             var validationContext = new ValidationContext(curso);
             var erros = new List<ValidationResult>();
@@ -35,6 +35,16 @@ namespace InterfocusConsole.Services
                 erros,
                 true);
             mensagens = new List<MensagemErro>();
+
+            var cursosNome = repository.Consultar<Curso>()
+                            .Where(e => e.Nome == curso.Nome)
+                            .Count();
+
+            if (cursosNome > 0)
+            {
+                mensagens.Add(new MensagemErro("nome", "Já existe um curso com esse nome"));
+                validation = false;
+            }
 
             if (!Enum.IsDefined<NivelCurso>(curso.Nivel))
             {
@@ -96,7 +106,6 @@ namespace InterfocusConsole.Services
                 return null;
             }
             existente.Nome = Curso.Nome;
-
             repository.Salvar(existente);
             return existente;
         }

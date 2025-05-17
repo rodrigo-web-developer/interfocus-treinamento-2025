@@ -45,5 +45,12 @@ namespace TreinamentoAPI.Controllers
             }
             return Ok(resultado);
         }
+
+        [HttpGet("[action]")]
+        public IActionResult Relatorio()
+        {
+            var result = servico.RelatorioPorNivel();
+            return Ok(result);
+        }
     }
 }

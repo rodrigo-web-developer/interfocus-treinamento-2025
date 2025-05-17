@@ -32,6 +32,7 @@ namespace InterfocusConsole.Services
                 validationContext,
                 erros,
                 true);
+
             mensagens = new List<MensagemErro>();
             foreach (var erro in erros)
             {
@@ -44,6 +45,13 @@ namespace InterfocusConsole.Services
                     erro.MemberNames.First(),
                     erro.ErrorMessage);
             }
+
+            if (aluno.Idade < 16)
+            {
+                mensagens.Add(new MensagemErro("dataNascimento", "Aluno deve ser maior de 16 anos"));
+                validation = false;
+            }
+
             //throw new Exception("dados invalidos!!!!");
             return validation;
         }
