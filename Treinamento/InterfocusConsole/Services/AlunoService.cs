@@ -77,7 +77,7 @@ namespace InterfocusConsole.Services
             {
                 return item.Nome.Contains(pesquisa);
             }
-            // lambda expression
+            // lambda expression - LINQ
             var resultado2 = repository
                 .Consultar<Aluno>()
                 .Where(item => item.Nome.Contains(pesquisa))

@@ -2,12 +2,20 @@ using InterfocusConsole.Repository;
 using InterfocusConsole.Repository.Implementations;
 using InterfocusConsole.Services;
 using NHibernate.Cfg;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(o =>
+    {
+        o.JsonSerializerOptions.ReferenceHandler =
+            ReferenceHandler.IgnoreCycles;
+    });
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -23,7 +31,8 @@ if (isInMemory)
 }
 else
 {
-    var connectionString = builder.Configuration.GetConnectionString("Default");
+    var connectionString = builder.Configuration
+        .GetConnectionString("Default");
     // criar implementacao para ISessionFactory
     builder.Services.AddSingleton(c =>
     {

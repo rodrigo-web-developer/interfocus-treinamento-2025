@@ -40,6 +40,8 @@ namespace InterfocusConsole.Models
         public DateTime DataCadastro { get; private set; }
         = DateTime.Now;
 
+        public IList<Inscricao> Inscricoes { get; set; }
+
         public virtual string GetPrintMessage()
         {
             // getcodigo e getnome

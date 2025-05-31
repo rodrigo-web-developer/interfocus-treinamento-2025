@@ -24,7 +24,7 @@ namespace InterfocusConsole.Services
                 try
                 {
                     using var transacao = repository.IniciarTransacao();
-                    repository.Salvar(entidade);
+                    repository.Incluir(entidade);
                     repository.Commit();
                     return true;
                 }

@@ -16,6 +16,13 @@
 		<property name="Email"	type="string" length="5000" />
 		<property name="DataNascimento" type="date"		not-null="false" />
 		<property name="DataCadastro"	type="DateTime" not-null="true" />
+
+		<bag name="Inscricoes" lazy="false" generic="true" 
+			 cascade="all-delete-orphan">
+			<key column="alunoid" />
+			<one-to-many class="Inscricao" />
+		</bag>
+	
 	</class>
 	
 </hibernate-mapping>
