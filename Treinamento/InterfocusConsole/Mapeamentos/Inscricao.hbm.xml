@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Mapear entidade curso para NHibernate-->
+<hibernate-mapping 
+	xmlns="urn:nhibernate-mapping-2.2"
+	namespace="InterfocusConsole.Models"
+	assembly="InterfocusConsole">
+
+	<class name="Inscricao" lazy="false" table="inscricoes">
+		<id name="Id" column="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">inscricoes_id</param>
+			</generator>
+		</id>
+
+		<property name="DataInscricao" type="DateTime" not-null="true" />
+		<many-to-one name="Aluno"
+					 column="alunoid"
+					 fetch="join"
+					 foreign-key="fk_inscricao_aluno" />
+		<many-to-one name="Curso"
+					 column="cursoid"
+					 fetch="join"
+					 foreign-key="fk_inscricao_curso" />
+	</class>
+	
+</hibernate-mapping>

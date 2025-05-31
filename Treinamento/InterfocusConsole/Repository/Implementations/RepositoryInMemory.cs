@@ -3,7 +3,7 @@ using InterfocusConsole.Interfaces;
 
 namespace InterfocusConsole.Repository.Implementations
 {
-    public class RepositoryInMemory : IRepository
+    public class RepositoryInMemory : IRepository, IDisposable
     {
         private static long contador = 10000;
 
@@ -60,6 +60,24 @@ namespace InterfocusConsole.Repository.Implementations
         public void Salvar(object model)
         {
             //GetList(model).Add(model);
+        }
+
+        public IDisposable IniciarTransacao()
+        {
+            return this;
+        }
+
+        public void Commit()
+        {
+        }
+
+        public void Rollback()
+        {
+        }
+
+        public void Dispose()
+        {
+            Console.WriteLine("Valeu, flw");
         }
     }
 }

@@ -17,6 +17,7 @@ namespace InterfocusConsole.Models
         public long Id { get; set; }
         [Required, MaxLength(50)]
         public string Nome { get; set; }
+        public string Email { get; set; }
 
         public DateTime? DataNascimento { get; set; }
 

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Mapear entidade curso para NHibernate-->
+<hibernate-mapping 
+	xmlns="urn:nhibernate-mapping-2.2"
+	namespace="InterfocusConsole.Models"
+	assembly="InterfocusConsole">
+
+	<class name="Curso" lazy="false" table="cursos">
+		<id name="Id" column="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">cursos_id</param>
+			</generator>
+		</id>
+		<property name="Nome"		type="string" length="100" />
+		<property name="Descricao"	type="string" length="5000" />
+		<property name="Nivel"		not-null="true" />
+		<property name="DataCadastro" type="DateTime" not-null="true"/>
+	</class>
+	
+</hibernate-mapping>

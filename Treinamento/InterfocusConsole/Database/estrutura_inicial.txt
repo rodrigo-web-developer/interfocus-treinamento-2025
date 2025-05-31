@@ -1,0 +1,35 @@
+﻿create sequence alunos_seq;
+create sequence cursos_seq;
+create sequence inscricoes_seq;
+
+create table cursos (
+	id bigint not null default nextval('cursos_seq'),
+	nome varchar(100),
+	descricao text,
+	nivel integer not null,
+	datacadastro timestamp not null default now(),
+	primary key (id)
+);
+
+create table alunos (
+	id bigint not null default nextval('alunos_seq'),
+	nome varchar(100),
+	email text,
+	datanascimento date,
+	datacadastro timestamp not null default now(),
+	primary key (id)
+);
+
+create table inscricoes (
+	id bigint not null default nextval('inscricoes_seq'),
+	cursoid bigint,
+	alunoid bigint,
+	datainscricao timestamp not null default now(),
+	primary key (id)
+);
+
+alter table inscricoes
+add constraint fk_inscricao_aluno foreign key  (alunoid)
+	references alunos(id),
+add constraint fk_inscricao_curso foreign key  (cursoid)
+references cursos(id);
