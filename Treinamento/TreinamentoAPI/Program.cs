@@ -1,6 +1,7 @@
 using InterfocusConsole.Repository;
 using InterfocusConsole.Repository.Implementations;
 using InterfocusConsole.Services;
+using NHibernate.Cfg;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,25 @@ builder.Services.AddTransient<AlunoService>();
 builder.Services.AddTransient<CursoService>();
 builder.Services.AddTransient<InscricaoService>();
 
-builder.Services.AddTransient<IRepository, RepositoryInMemory>();
+var isInMemory = builder.Configuration.GetValue("UseInMemory", false);
+if (isInMemory)
+{
+    builder.Services.AddTransient<IRepository, RepositoryInMemory>();
+}
+else
+{
+    var connectionString = builder.Configuration.GetConnectionString("Default");
+    // criar implementacao para ISessionFactory
+    builder.Services.AddSingleton(c =>
+    {
+        var config = new Configuration().Configure();
+        config.DataBaseIntegration(
+            x => x.ConnectionString = connectionString
+        );
+        return config.BuildSessionFactory();
+    });
+    builder.Services.AddTransient<IRepository, RepositoryNHibernate>();
+}
 
 var app = builder.Build();
 

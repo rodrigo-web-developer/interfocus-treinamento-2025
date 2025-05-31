@@ -48,7 +48,7 @@ namespace InterfocusConsole.Repository.Implementations
 
         public void Rollback()
         {
-            session.GetCurrentTransaction().Rollback();
+            session.GetCurrentTransaction()?.Rollback();
         }
 
         public void Commit()

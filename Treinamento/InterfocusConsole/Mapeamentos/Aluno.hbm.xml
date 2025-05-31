@@ -8,7 +8,7 @@
 	<class name="Aluno" lazy="false" table="alunos">
 		<id name="Id" column="id" type="long">
 			<generator class="sequence">
-				<param name="sequence">alunos_id</param>
+				<param name="sequence">alunos_seq</param>
 			</generator>
 		</id>
 
