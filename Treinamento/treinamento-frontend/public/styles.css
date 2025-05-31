@@ -1,0 +1,66 @@
+/* Cascade StyleSheet */
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: blue;
+}
+
+table {
+    background-color: black;
+    color: white;
+}
+
+button {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    padding: 16px;
+    border-radius: 8px;
+    border-width: 0;
+}
+
+button:hover {
+    filter: brightness(0.5);
+}
+
+button[type="submit"]{
+    background-color: green;
+}
+
+div > a {
+    text-decoration: none;
+    color: blueviolet;
+    font-weight: 500;
+
+    transition: color 3s ease;
+}
+
+div > a:hover {
+    text-decoration: none;
+    color: blue;
+    font-weight: bold;
+    transition: color 3s ease;
+}
+
+div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+div > form {
+    column-span: 2;
+}
+
+form {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+}
+form input {
+    width: 100%;
+}

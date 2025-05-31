@@ -1,0 +1,69 @@
+<!-- HTML - HyperText Markup Language -->
+
+<html>
+    <head>
+        <title>Página inicial</title>
+        <meta charset="utf-8">
+
+        <link rel="stylesheet" href="./styles.css">
+
+        <script type="text/javascript">
+            var contador = 1;
+            function addSubtitle(event) {
+                var button = event.target; // nó do button
+                // string com titulo
+                var novotitulo = `Mais um subtitulo ${contador++}`;
+                // criou novo h3
+                var novoh3 = document.createElement("h3");
+                novoh3.innerHTML = novotitulo; // define titulo
+                //
+                button.parentNode.insertBefore(novoh3, button);
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Olá, mundo!</h1>
+        <h2>Subtitulo</h2>
+        <h3>Mais um subtitulo</h3>
+        <button onclick="addSubtitle(event)">Adicionar Subtitulo</button>
+        <a href="./pagina2.html">Página 2</a>
+        <div>
+            <p>Esse é um paragrafo</p>
+            <a href="https://unimar.edu.br"
+                target="_blank"
+            >Site da Unimar</a>
+            <form>
+                <!-- void tag - self closing tag -->
+                <label>Nome:</label><input type="text">
+                <label>Email:</label><input type="email">
+                <label>Cor:</label><input type="color">
+                <label>Data:</label><input type="date">
+                <label>Idade:</label><input type="number">
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+        <div>
+            <table border="1">
+                <thead>
+                    <tr> <!-- table row -->
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Idade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Rodrigo teste</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Fulano de tal</td>
+                        <td>20</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
