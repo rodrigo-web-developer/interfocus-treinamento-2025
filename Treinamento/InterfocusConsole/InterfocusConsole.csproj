@@ -8,9 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="hibernate.cfg.xml" />
     <None Remove="Mapeamentos\Aluno.hbm.xml" />
     <None Remove="Mapeamentos\Curso.hbm.xml" />
     <None Remove="Mapeamentos\Inscricao.hbm.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

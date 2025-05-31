@@ -13,14 +13,17 @@
 		</id>
 
 		<property name="DataInscricao" type="DateTime" not-null="true" />
+		
 		<many-to-one name="Aluno"
 					 column="alunoid"
 					 fetch="join"
 					 foreign-key="fk_inscricao_aluno" />
+		
 		<many-to-one name="Curso"
 					 column="cursoid"
 					 fetch="join"
 					 foreign-key="fk_inscricao_curso" />
+	
 	</class>
 	
 </hibernate-mapping>
