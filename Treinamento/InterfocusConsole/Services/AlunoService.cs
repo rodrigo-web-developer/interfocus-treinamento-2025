@@ -18,8 +18,18 @@ namespace InterfocusConsole.Services
             var valido = Validar(aluno, out mensagens);
             if (valido)
             {
-                repository.Incluir(aluno);
-                return true;
+                try
+                {
+                    using var transacao = repository.IniciarTransacao();
+                    repository.Incluir(aluno);
+                    repository.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    repository.Rollback();
+                    return false;
+                }
             }
             return false;
         }
@@ -91,15 +101,36 @@ namespace InterfocusConsole.Services
                 return null;
             }
             existente.Nome = aluno.Nome;
-            repository.Salvar(existente);
-            return existente;
+
+            try
+            {
+                using var transacao = repository.IniciarTransacao();
+                repository.Salvar(existente);
+                repository.Commit();
+                return existente;
+            }
+            catch (Exception)
+            {
+                repository.Rollback();
+                return null;
+            }
         }
 
         public Aluno Deletar(long codigo)
         {
             var existente = ConsultarPorCodigo(codigo);
-            repository.Excluir(existente);
-            return existente;
+            try
+            {
+                using var transacao = repository.IniciarTransacao();
+                repository.Excluir(existente);
+                repository.Commit();
+                return existente;
+            }
+            catch (Exception)
+            {
+                repository.Rollback();
+                return null;
+            }
         }
     }
 }

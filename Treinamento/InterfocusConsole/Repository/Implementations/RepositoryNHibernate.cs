@@ -18,6 +18,8 @@ namespace InterfocusConsole.Repository.Implementations
             // conecta no banco de dados
             this.session = sessionFactory.OpenSession();
         }
+
+
         public IQueryable<T> Consultar<T>()
         {
             return session.Query<T>();
@@ -36,6 +38,22 @@ namespace InterfocusConsole.Repository.Implementations
         public void Incluir(object model)
         {
             session.Save(model);
+        }
+
+        public IDisposable IniciarTransacao()
+        {
+            var transaction = session.BeginTransaction();
+            return transaction;
+        }
+
+        public void Rollback()
+        {
+            session.GetCurrentTransaction().Rollback();
+        }
+
+        public void Commit()
+        {
+            session.GetCurrentTransaction().Commit();
         }
 
         public void Salvar(object model)

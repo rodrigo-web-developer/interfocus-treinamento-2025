@@ -8,10 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Mapeamentos\Aluno.hbm.xml" />
     <None Remove="Mapeamentos\Curso.hbm.xml" />
+    <None Remove="Mapeamentos\Inscricao.hbm.xml" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Mapeamentos\Aluno.hbm.xml" />
+    <EmbeddedResource Include="Mapeamentos\Inscricao.hbm.xml" />
     <EmbeddedResource Include="Mapeamentos\Curso.hbm.xml" />
   </ItemGroup>
 

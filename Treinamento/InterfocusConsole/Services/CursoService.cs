@@ -15,13 +15,23 @@ namespace InterfocusConsole.Services
 
         private readonly IRepository repository;
 
-        public bool Cadastrar(Curso Curso, out List<MensagemErro> mensagens)
+        public bool Cadastrar(Curso curso, out List<MensagemErro> mensagens)
         {
-            var valido = Validar(Curso, out mensagens);
+            var valido = Validar(curso, out mensagens);
             if (valido)
             {
-                repository.Incluir(Curso);
-                return true;
+                try
+                {
+                    using var transacao = repository.IniciarTransacao();
+                    repository.Incluir(curso);
+                    repository.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    repository.Rollback();
+                    return false;
+                }
             }
             return false;
         }
@@ -97,24 +107,46 @@ namespace InterfocusConsole.Services
             return repository.ConsultarPorId<Curso>(id);
         }
 
-        public Curso Editar(Curso Curso)
+        public Curso Editar(Curso curso)
         {
-            var existente = ConsultarPorCodigo(Curso.Id);
+            var existente = ConsultarPorCodigo(curso.Id);
 
             if (existente == null)
             {
                 return null;
             }
-            existente.Nome = Curso.Nome;
-            repository.Salvar(existente);
-            return existente;
+            existente.Nome = curso.Nome;
+            existente.Descricao = curso.Descricao;
+            try
+            {
+                using var transacao = repository.IniciarTransacao();
+                repository.Salvar(existente);
+                repository.Commit();
+                return existente;
+            }
+            catch (Exception)
+            {
+                repository.Rollback();
+                return null;
+            }
         }
 
         public Curso Deletar(int id)
         {
             var existente = ConsultarPorCodigo(id);
-            repository.Excluir(existente);
-            return existente;
+
+            try
+            {
+                using var transacao = repository.IniciarTransacao();
+                repository.Excluir(existente);
+                repository.Commit();
+                return existente;
+            }
+            catch (Exception)
+            {
+                repository.Rollback();
+                return null;
+            }
         }
     }
 }

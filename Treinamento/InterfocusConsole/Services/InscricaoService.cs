@@ -21,8 +21,18 @@ namespace InterfocusConsole.Services
             var valido = Validar(entidade, out mensagens);
             if (valido)
             {
-                repository.Incluir(entidade);
-                return true;
+                try
+                {
+                    using var transacao = repository.IniciarTransacao();
+                    repository.Salvar(entidade);
+                    repository.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    repository.Rollback();
+                    return false;
+                }
             }
             return false;
         }
@@ -113,8 +123,18 @@ namespace InterfocusConsole.Services
         public Inscricao Deletar(long id)
         {
             var existente = ConsultarPorCodigo(id);
-            repository.Excluir(existente);
-            return existente;
+            try
+            {
+                using var transacao = repository.IniciarTransacao();
+                repository.Excluir(existente);
+                repository.Commit();
+                return existente;
+            }
+            catch (Exception)
+            {
+                repository.Rollback();
+                return null;
+            }
         }
 
         public RelatorioCurso RelatorioPorNivel()
