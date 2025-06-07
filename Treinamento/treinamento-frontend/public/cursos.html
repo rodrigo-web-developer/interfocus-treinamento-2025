@@ -1,0 +1,59 @@
+<!-- HTML - HyperText Markup Language -->
+
+<html>
+
+<head>
+    <title>Cursos</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="text/javascript" src="./cursos.js"></script>
+</head>
+
+<body>
+    <h1>CURSOS</h1>
+
+    <div class="grid search teste blablabla">
+        <label>Pesquisa:</label>
+        <input name="nome" type="text" />
+    </div>
+
+    <table id="tabela-cursos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Nível</th>
+                <th>Data Cadastro</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <form method="post" onsubmit="enviarFormCurso(event)">
+        <label for="curso-nome">Nome:</label>
+        <input id="curso-nome" required minlength="10" maxlength="50" name="name" type="text" />
+        <label>Nível:</label>
+        <select required name="nivel" type="text">
+            <option value="0">Iniciante</option>
+            <option value="1">Intermediário</option>
+            <option value="2">Avançado</option>
+        </select>
+        <label>Descrição:</label>
+        <textarea required name="descricao" type="text"></textarea>
+        <button type="submit">Cadastrar</button>
+    </form>
+
+
+    <div>
+        <h2>Subtitulo</h2>
+        <p>texto de teste</p>
+    </div>
+    <div class="grid">
+        <strong>Observação: </strong>
+        <p>texto de teste</p>
+    </div>
+</body>
+
+</html>

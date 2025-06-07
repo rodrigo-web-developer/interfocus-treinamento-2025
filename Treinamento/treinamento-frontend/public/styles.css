@@ -10,8 +10,28 @@ h2 {
 }
 
 table {
-    background-color: black;
+    background-color: #f9f900;
     color: white;
+    width: 100%;
+}
+
+thead {
+    background-color: #6538d5;
+}
+
+thead th {
+    padding: 8px;
+    font-weight: bold;
+}
+
+tbody td {
+    padding: 4px;
+    color: black;
+}
+
+tbody tr:hover {
+    background-color: #999;
+    cursor: pointer;
 }
 
 button {
@@ -48,6 +68,9 @@ div > a:hover {
 
 div {
     width: 100%;
+}
+
+div.grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -56,11 +79,29 @@ div > form {
     column-span: 2;
 }
 
+ol {
+    list-style-type: lower-roman;
+}
+
 form {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 0.5rem;
+    padding-top: 1rem;
 }
+
 form input {
     width: 100%;
 }
+
+form input:invalid, 
+form textarea:invalid,
+form select:invalid
+{
+    border-color: red;
+}
+
+#curso-nome {
+    padding: 8px;
+}
+
