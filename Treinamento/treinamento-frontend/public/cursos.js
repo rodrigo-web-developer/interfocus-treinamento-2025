@@ -35,12 +35,12 @@ function enviarFormCurso(event) {
 
     pedeConfirmacao.then(confirmou => {
         if (confirm) {
-            //     tbody.innerHTML += `<tr>
-            //     <td>${curso.id}</td>
-            //     <td>${curso.nome}</td>
-            //     <td>${curso.nivel}</td>
-            //     <td>${curso.dataCadastro.toLocaleDateString()}</td>
-            // </tr>`
+            tbody.innerHTML += `<tr>
+                <td>${curso.id}</td>
+                <td>${curso.nome}</td>
+                <td>${curso.nivel}</td>
+                <td>${curso.dataCadastro.toLocaleDateString()}</td>
+            </tr>`
         } else {
 
         }
@@ -56,25 +56,23 @@ function listarCursos() {
 
     response.then(resultado => {
         if (resultado.status === 200) {
-            resultado
-                .json()
-                .then(dados => {
-                    const tabela = document.getElementById("tabela-cursos");
-                    const tbody = tabela.querySelector("tbody");
-                    dados.forEach(curso => {
-                        var novaLinha = document.createElement("tr");
-                        var col1 = document.createElement("td");
-                        var col2 = document.createElement("td");
-                        var col3 = document.createElement("td");
-                        var col4 = document.createElement("td");
-                        col1.innerHTML = curso.id;
-                        col2.innerHTML = curso.nome;
-                        col3.innerHTML = curso.nivel;
-                        col4.innerHTML = new Date(curso.dataCadastro).toLocaleString();
-                        novaLinha.append(col1, col2, col3, col4);
-                        tbody.appendChild(novaLinha);
-                    })
+            resultado.json().then(dados => {
+                const tabela = document.getElementById("tabela-cursos");
+                const tbody = tabela.querySelector("tbody");
+                dados.forEach(curso => {
+                    var novaLinha = document.createElement("tr");
+                    var col1 = document.createElement("td");
+                    var col2 = document.createElement("td");
+                    var col3 = document.createElement("td");
+                    var col4 = document.createElement("td");
+                    col1.innerHTML = curso.id;
+                    col2.innerHTML = curso.nome;
+                    col3.innerHTML = curso.nivel;
+                    col4.innerHTML = new Date(curso.dataCadastro).toLocaleString();
+                    novaLinha.append(col1, col2, col3, col4);
+                    tbody.appendChild(novaLinha);
                 })
+            })
         }
     })
 }
