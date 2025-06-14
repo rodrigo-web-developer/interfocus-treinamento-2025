@@ -105,3 +105,37 @@ form select:invalid
     padding: 8px;
 }
 
+.grid-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-radius: 16px;
+    border: 1px solid black;
+    padding: 8px;
+}
+
+.card h4 {
+    text-align: center;
+}
+
+.card ul {
+    list-style-type: none;
+    padding: 0 8px;
+}
+
+.card li {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+}
+
+select {
+    padding: 8px;
+}
