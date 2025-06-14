@@ -1,0 +1,201 @@
+/* Cascade StyleSheet */
+
+
+* {
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: blue;
+}
+
+table {
+    background-color: #f9f900;
+    color: white;
+    width: 100%;
+}
+
+thead {
+    background-color: #6538d5;
+}
+
+thead th {
+    padding: 8px;
+    font-weight: bold;
+}
+
+tbody td {
+    padding: 4px;
+    color: black;
+}
+
+tbody tr:hover {
+    background-color: #999;
+    cursor: pointer;
+}
+
+button {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    padding: 16px;
+    border-radius: 8px;
+    border-width: 0;
+}
+
+button:hover {
+    filter: brightness(0.5);
+}
+
+button[type="submit"] {
+    background-color: green;
+}
+
+div>a {
+    text-decoration: none;
+    color: blueviolet;
+    font-weight: 500;
+
+    transition: color 3s ease;
+}
+
+div>a:hover {
+    text-decoration: none;
+    color: blue;
+    font-weight: bold;
+    transition: color 3s ease;
+}
+
+div {
+    width: 100%;
+}
+
+div.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+div>form {
+    column-span: 2;
+}
+
+ol {
+    list-style-type: lower-roman;
+}
+
+form {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    padding-top: 1rem;
+}
+
+form input {
+    width: 100%;
+}
+
+form input:invalid,
+form textarea:invalid,
+form select:invalid {
+    border-color: red;
+}
+
+#curso-nome {
+    padding: 8px;
+}
+
+.grid-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-radius: 16px;
+    border: 1px solid black;
+    padding: 8px;
+}
+
+.card h4 {
+    text-align: center;
+}
+
+.card ul {
+    list-style-type: none;
+    padding: 0 8px;
+}
+
+.card li {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+select {
+    padding: 8px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.row input {
+    flex: 1;
+    padding: 8px;
+}
+
+.modal {
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    padding: 25px;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.60);
+}
+
+.modal form {
+    padding: 24px;
+    background-color: white;
+    height: fit-content;
+    border-radius: 16px;
+}
+
+.hidden {
+    display: none;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 16px;
+}
+
+nav li {
+    padding: 8px 4px;
+}
+
+nav {
+    width: 100%;
+    background-color: #999;
+}
+
+nav li:hover {
+    background-color: white;
+}
