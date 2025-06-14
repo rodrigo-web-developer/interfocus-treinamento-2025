@@ -1,5 +1,11 @@
 /* Cascade StyleSheet */
 
+* {
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
 body {
     font-family: 'Courier New', Courier, monospace;
 }
@@ -172,4 +178,23 @@ select {
 
 .hidden {
     display: none;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 16px;
+}
+
+nav li {
+    padding: 8px 4px;
+}
+
+nav {
+    width: 100%;
+    background-color: #999;
+}
+
+nav li:hover {
+    background-color: white;
 }
