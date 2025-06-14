@@ -59,6 +59,9 @@ function enviarFormCurso(event) {
 const URL_API = "http://localhost:5188";
 
 function listarCursos() {
+    const form = document.querySelector("form");
+    form.parentElement.classList.add("hidden");
+
     fetch(`${URL_API}/api/curso`, {
         method: "GET"
     })
@@ -110,6 +113,16 @@ function abrirFormulario(curso) {
     form.querySelector("input[name=nome]").value = curso.nome;
     form.querySelector("textarea[name=descricao]").value = curso.descricao;
     form.querySelector("select[name=nivel]").value = curso.nivel;
+
+    form.parentElement.classList.remove("hidden");
+}
+
+function limparForm() {
+    const form = document.querySelector("form");
+    form.reset();
+    currentId = null;
+
+    form.parentElement.classList.remove("hidden");
 }
 
 setTimeout(() => {

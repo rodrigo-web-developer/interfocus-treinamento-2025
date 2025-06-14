@@ -47,11 +47,11 @@ button:hover {
     filter: brightness(0.5);
 }
 
-button[type="submit"]{
+button[type="submit"] {
     background-color: green;
 }
 
-div > a {
+div>a {
     text-decoration: none;
     color: blueviolet;
     font-weight: 500;
@@ -59,7 +59,7 @@ div > a {
     transition: color 3s ease;
 }
 
-div > a:hover {
+div>a:hover {
     text-decoration: none;
     color: blue;
     font-weight: bold;
@@ -75,7 +75,7 @@ div.grid {
     grid-template-columns: 1fr 1fr;
 }
 
-div > form {
+div>form {
     column-span: 2;
 }
 
@@ -94,10 +94,9 @@ form input {
     width: 100%;
 }
 
-form input:invalid, 
+form input:invalid,
 form textarea:invalid,
-form select:invalid
-{
+form select:invalid {
     border-color: red;
 }
 
@@ -133,9 +132,44 @@ form select:invalid
 .card li {
     width: 100%;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
 }
 
 select {
     padding: 8px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.row input {
+    flex: 1;
+    padding: 8px;
+}
+
+.modal {
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    padding: 25px;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.60);
+}
+
+.modal form {
+    padding: 24px;
+    background-color: white;
+    height: fit-content;
+    border-radius: 16px;
+}
+
+.hidden {
+    display: none;
 }
