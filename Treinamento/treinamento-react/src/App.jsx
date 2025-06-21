@@ -3,6 +3,7 @@ import HomePage, { Formulario } from './pages/Home';
 import CursosPage from './pages/Cursos';
 import { Layout } from './components/Layout';
 import { BrowserRouter } from 'simple-react-routing';
+import AlunosPage from './pages/Alunos';
 
 class Aluno { }
 
@@ -32,6 +33,9 @@ function App() {
   }, {
     path: "cursos",
     component: <CursosPage></CursosPage>
+  }, {
+    path: "alunos",
+    component: <AlunosPage></AlunosPage>
   }]}>
     <Layout></Layout>
   </BrowserRouter>

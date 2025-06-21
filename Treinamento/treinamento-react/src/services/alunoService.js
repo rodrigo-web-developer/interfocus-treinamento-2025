@@ -2,13 +2,10 @@
 // PascalCase
 // camelCase
 
-var contador = 1;
-var currentId = null;
-
-export async function salvarCurso(curso) {
-    const resultado = await fetch(`${URL_API}/api/curso`, {
-        method: curso.id ? "PUT" : "POST",
-        body: JSON.stringify(curso),
+export async function salvarAluno(aluno) {
+    const resultado = await fetch(`${URL_API}/api/aluno`, {
+        method: aluno.id ? "PUT" : "POST",
+        body: JSON.stringify(aluno),
         headers: {
             "Content-type": "application/json"
         }
@@ -22,8 +19,8 @@ export async function salvarCurso(curso) {
 
 const URL_API = "http://localhost:5188";
 
-export function listarCursos(busca) {
-    return fetch(`${URL_API}/api/curso?busca=${busca || ""}`, {
+export function listarAlunos(busca) {
+    return fetch(`${URL_API}/api/aluno?pesquisa=${busca || ""}`, {
         method: "GET"
     }).then(async resultado => {
         if (resultado.status === 200) {
@@ -40,8 +37,8 @@ export function listarCursos(busca) {
     })
 }
 
-export async function getCursoById(id) {
-    const resultado = await fetch(`${URL_API}/api/curso/${id}`, {
+export async function getAlunoById(id) {
+    const resultado = await fetch(`${URL_API}/api/aluno/${id}`, {
         method: "GET"
     });
     var dados = await resultado.json();

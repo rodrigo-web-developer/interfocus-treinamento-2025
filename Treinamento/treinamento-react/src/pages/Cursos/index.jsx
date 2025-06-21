@@ -10,10 +10,11 @@ export default function CursosPage() {
 
     const [selected, setSelected] = useState(null);
 
-    const fetchData = async () => {
-        const resultado = await listarCursos();
-        if (resultado.status == 200) {
+    const [search, setSearch] = useState("");
 
+    const fetchData = async () => {
+        const resultado = await listarCursos(search);
+        if (resultado.status == 200) {
             setCursos(resultado.data);
         }
     }
@@ -43,7 +44,7 @@ export default function CursosPage() {
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [search]);
 
     const selecionarLinha = async (curso) => {
         const resultado = await getCursoById(curso.id);
@@ -51,14 +52,20 @@ export default function CursosPage() {
             setSelected(resultado.data);
             setOpen(true);
         }
-    }
+    };
 
     return (<>
-        <h1>CURSOS</h1>
+        <h1>CURSOS: {search}</h1>
 
         <div className="row">
             <label>Pesquisa:</label>
-            <input name="pesquisa" type="text" />
+            <input name="pesquisa"
+                type="search"
+                value={search}
+                onChange={(e) => 
+                    setSearch(e.target.value)
+                }
+            />
             <button type="button" onClick={() => {
                 setOpen(true);
                 setSelected(null);
