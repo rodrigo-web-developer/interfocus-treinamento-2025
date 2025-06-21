@@ -124,6 +124,21 @@ form select:invalid {
     padding: 16px;
 }
 
+.grid-cards img {
+  border-radius: 50%;
+  border: 1px solid black;
+  min-width: 72px;
+}
+
+main {
+  padding: 16px 16px 24px 16px;
+}
+
+.card li:has(img) {
+    align-items: center;
+    justify-content: center;
+}
+
 .card {
     display: flex;
     flex-direction: column;
@@ -131,6 +146,11 @@ form select:invalid {
     border-radius: 16px;
     border: 1px solid black;
     padding: 8px;
+}
+
+.card:hover {
+    box-shadow: black 4px 6px 8px;
+    cursor: pointer;
 }
 
 .card h4 {
