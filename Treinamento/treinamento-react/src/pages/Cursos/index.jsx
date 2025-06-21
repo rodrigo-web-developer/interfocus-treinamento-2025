@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react"
+import { listarCursos } from "../../services/cursoService";
 
 export default function CursosPage() {
-    const [render, setRender] = useState(false);
+
+    const [cursos, setCursos] = useState([]);
+
+    const fetchData = async () => {
+        const resultado = await listarCursos();
+        if (resultado.status == 200) {
+            
+            setCursos(resultado.data);
+        }
+    }
+
     useEffect(() => {
-        setTimeout(() => {
-            setRender(true);
-        }, 2000);
+        fetchData();
     }, [])
 
-    return !render ? <>Loading...</> : (<>
+    return (<>
         <h1>CURSOS</h1>
 
         <div className="row">
@@ -27,7 +36,16 @@ export default function CursosPage() {
                 </tr>
             </thead>
             <tbody>
-
+                {
+                    cursos.map(curso =>
+                        <tr>
+                            <td>{curso.id}</td>
+                            <td>{curso.nome}</td>
+                            <td>{curso.nivel}</td>
+                            <td>{curso.dataCadastro}</td>
+                        </tr>
+                    )
+                }
             </tbody>
         </table>
 
