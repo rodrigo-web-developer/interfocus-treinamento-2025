@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import HomePage, { Formulario } from './pages/Home';
 import CursosPage from './pages/Cursos';
+import { Layout } from './components/Layout';
+import { BrowserRouter } from 'simple-react-routing';
 
 class Aluno { }
 
@@ -24,11 +26,15 @@ const { nome, idade } = aluno;
 
 function App() {
 
-  if (window.location.pathname == "/cursos"){
-    return <CursosPage></CursosPage>
-  }
-
-  return <HomePage></HomePage>
+  return <BrowserRouter routes={[{
+    path: "",
+    component: <HomePage></HomePage>
+  }, {
+    path: "cursos",
+    component: <CursosPage></CursosPage>
+  }]}>
+    <Layout></Layout>
+  </BrowserRouter>
 }
 
 

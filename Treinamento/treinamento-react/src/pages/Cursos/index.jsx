@@ -1,18 +1,14 @@
+import { useEffect, useState } from "react"
+
 export default function CursosPage() {
-    return (<>
-        <nav>
-            <ul>
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                <li>
-                    <a href="/cursos">Cursos</a>
-                </li>
-                <li>
-                    <a href="/alunos">Alunos</a>
-                </li>
-            </ul>
-        </nav>
+    const [render, setRender] = useState(false);
+    useEffect(() => {
+        setTimeout(() => {
+            setRender(true);
+        }, 2000);
+    }, [])
+
+    return !render ? <>Loading...</> : (<>
         <h1>CURSOS</h1>
 
         <div className="row">
