@@ -58,6 +58,11 @@ button[type="submit"] {
     background-color: green;
 }
 
+button[type="reset"] {
+    background-color: gray;
+    box-shadow: black 1px 2px 3px;
+}
+
 div>a {
     text-decoration: none;
     color: blueviolet;
