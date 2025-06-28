@@ -1,9 +1,14 @@
 import { useNavigation, useRouter } from "simple-react-routing";
-import { salvarAluno } from "../../../services/alunoService";
+import { getAlunoById, salvarAluno } from "../../../services/alunoService";
+import { useEffect, useState } from "react";
 
 export default function AlunoCadastroPage() {
 
+    const { pathParams } = useRouter();
+
     const { navigateTo } = useNavigation();
+
+    const [current, setCurrent] = useState();
 
     const submitForm = async (e) => {
         e.preventDefault();
@@ -23,21 +28,36 @@ export default function AlunoCadastroPage() {
         }
     }
 
-    return <>
+    useEffect(() => {
+        if (pathParams["id"]) {
+            getAlunoById(pathParams["id"])
+                .then(response => {
+                    if (response.status == 200) {
+                        setCurrent(response.data);
+                    }
+                })
+        } 
+        else {
+            setCurrent({});
+        }
+    }, [])
+
+    return current && <>
         <h1>Cadastro de aluno</h1>
 
         <form className="column" onSubmit={submitForm}>
             <div className="column">
                 <label>Nome:</label>
-                <input name="nome" type="text" />
+                <input defaultValue={current?.nome} name="nome" type="text" />
             </div>
             <div className="column">
                 <label>E-mail:</label>
-                <input name="email" type="email" />
+                <input defaultValue={current?.email} name="email" type="email" />
             </div>
             <div className="column">
                 <label>Data de nascimento:</label>
-                <input name="data-nascimento" type="date" />
+                {/* YYYY-MM-DD */}
+                <input defaultValue={new Date(current?.dataNascimento).toISOString().split('T')[0]} name="data-nascimento" type="date" />
             </div>
             <div className="row-end">
                 <button type="reset">Cancelar</button>
