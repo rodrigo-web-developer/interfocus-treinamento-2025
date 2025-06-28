@@ -16,9 +16,13 @@ namespace TreinamentoAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string busca)
         {
-            return Ok(servico.Consultar());
+            if (string.IsNullOrEmpty(busca))
+            {
+                return Ok(servico.Consultar());
+            }
+            return Ok(servico.Consultar(busca));
         }
 
         [HttpPost]

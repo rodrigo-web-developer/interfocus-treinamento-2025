@@ -58,5 +58,16 @@ namespace TreinamentoAPI.Controllers
             }
             return Ok(resultado);
         }
+
+        [HttpGet("{codigo}")]
+        public IActionResult GetById(long codigo)
+        {
+            var resultado = servico.ConsultarPorCodigo(codigo);
+            if (resultado == null)
+            {
+                return NotFound();
+            }
+            return Ok(resultado);
+        }
     }
 }
