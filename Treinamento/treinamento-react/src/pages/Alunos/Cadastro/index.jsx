@@ -10,11 +10,15 @@ export default function AlunoCadastroPage() {
 
     const [current, setCurrent] = useState();
 
+    const [erros, setErros] = useState([]);
+
     const submitForm = async (e) => {
         e.preventDefault();
         var formData = new FormData(e.target);
         const aluno = {
+            id: pathParams["id"],
             nome: formData.get("nome"),
+            cep: formData.get("cep"),
             email: formData.get("email"),
             dataNascimento: new Date(formData.get("data-nascimento")),
         }
@@ -24,7 +28,9 @@ export default function AlunoCadastroPage() {
             navigateTo(e, "/alunos")
         }
         else {
-
+            if (response.status == 422) {
+                setErros(response.data);
+            }
         }
     }
 
@@ -36,9 +42,11 @@ export default function AlunoCadastroPage() {
                         setCurrent(response.data);
                     }
                 })
-        } 
+        }
         else {
-            setCurrent({});
+            setCurrent({
+                dataNascimento: new Date()
+            });
         }
     }, [])
 
@@ -55,11 +63,18 @@ export default function AlunoCadastroPage() {
                 <input defaultValue={current?.email} name="email" type="email" />
             </div>
             <div className="column">
+                <label>CEP:</label>
+                <input defaultValue={current?.cep} name="cep" type="cep" />
+            </div>
+            <div className="column">
                 <label>Data de nascimento:</label>
                 {/* YYYY-MM-DD */}
                 <input defaultValue={new Date(current?.dataNascimento).toISOString().split('T')[0]} name="data-nascimento" type="date" />
             </div>
             <div className="row-end">
+                <div className="column">
+                    {erros.map(e => <strong className="error">{e.propriedade}: {e.mensagem}</strong>)}
+                </div>
                 <button type="reset">Cancelar</button>
                 <button type="submit">Salvar</button>
             </div>

@@ -262,3 +262,7 @@ nav li:hover {
     display: flex;
     flex-direction: column;
 }
+
+.error {
+    color: red;
+}
