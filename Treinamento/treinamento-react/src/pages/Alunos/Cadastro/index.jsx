@@ -1,10 +1,24 @@
 import { useNavigation, useRouter } from "simple-react-routing";
 import { getAlunoById, salvarAluno } from "../../../services/alunoService";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 export default function AlunoCadastroPage() {
 
     const { pathParams } = useRouter();
+    //const [cep,setCep] = useState();
+    const [cep, setCep] = useReducer(
+        (oldValue, newValue) => {
+            console.log(oldValue, newValue);
+
+            if (newValue) {
+                const apenasDigitos =
+                    newValue.replace(/[^\d]/g, "").substr(-8);
+                const valorMascarado = apenasDigitos.replace(/^(\d{5})(\d)/, "$1-$2")
+                return valorMascarado;
+            }
+
+            return newValue?.toLowerCase();
+        }, "");
 
     const { navigateTo } = useNavigation();
 
@@ -56,15 +70,25 @@ export default function AlunoCadastroPage() {
         <form className="column" onSubmit={submitForm}>
             <div className="column">
                 <label>Nome:</label>
-                <input defaultValue={current?.nome} name="nome" type="text" />
+                <input required defaultValue={current?.nome} name="nome" type="text" />
             </div>
             <div className="column">
                 <label>E-mail:</label>
-                <input defaultValue={current?.email} name="email" type="email" />
+                <input
+                    onBlur={(e) => e.target.value = e.target.value.toLowerCase()}
+                    defaultValue={current?.email} name="email" type="email" />
             </div>
             <div className="column">
                 <label>CEP:</label>
-                <input defaultValue={current?.cep} name="cep" type="cep" />
+                <input
+                    value={cep}
+                    onKeyDown={(e) => {
+                        if (e.key.length == 1 && !e.key.match(/\d/)) {
+                            e.preventDefault();
+                        }
+                    }}
+                    onChange={(e) => setCep(e.target.value)}
+                    pattern="^\d{5}-\d{3}$" defaultValue={current?.cep} name="cep" type="cep" />
             </div>
             <div className="column">
                 <label>Data de nascimento:</label>

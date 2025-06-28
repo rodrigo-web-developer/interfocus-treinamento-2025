@@ -113,6 +113,12 @@ form select:invalid {
     border-color: red;
 }
 
+form input:invalid:focus,
+form textarea:invalid:focus,
+form select:invalid:focus {
+    border: 2px solid red;
+}
+
 #curso-nome {
     padding: 8px;
 }
@@ -152,6 +158,9 @@ main {
 .card:hover {
     box-shadow: black 4px 6px 8px;
     cursor: pointer;
+    background-color: black;
+    color: white;
+    transition: background-color 2s ease;
 }
 
 .card h4 {
@@ -265,4 +274,13 @@ nav li:hover {
 
 .error {
     color: red;
+}
+
+input {
+    border-radius: 4px;
+    border-width: 1px;
+}
+
+button:hover {
+    cursor: pointer;
 }
