@@ -19,6 +19,9 @@ namespace InterfocusConsole.Models
         public string Nome { get; set; }
         public string Email { get; set; }
 
+        [RegularExpression(@"^\d{5}-\d{3}$", 
+            ErrorMessage = "O CEP está com formato inválido")]
+        public string Cep { get; set; }
         public DateTime? DataNascimento { get; set; }
 
         public int Idade
@@ -46,6 +49,6 @@ namespace InterfocusConsole.Models
         {
             // getcodigo e getnome
             return $"{Id} - {Nome}"; // f"" python
-        }
+        }   
     }
 }

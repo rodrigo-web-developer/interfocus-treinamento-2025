@@ -16,6 +16,7 @@
 		<property name="Email"	type="string" length="5000" />
 		<property name="DataNascimento" type="date"		not-null="false" />
 		<property name="DataCadastro"	type="DateTime" not-null="true" />
+		<property name="Cep"	type="string" not-null="false" />
 
 		<bag name="Inscricoes" lazy="false" generic="true" 
 			 cascade="all-delete-orphan">

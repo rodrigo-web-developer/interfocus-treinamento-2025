@@ -83,7 +83,9 @@ namespace InterfocusConsole.Services
 
         public List<Curso> Consultar()
         {
-            return repository.Consultar<Curso>().ToList();
+            return repository.Consultar<Curso>()
+                .OrderByDescending(c => c.Id)
+                .ToList();
         }
 
         public List<Curso> Consultar(string pesquisa)

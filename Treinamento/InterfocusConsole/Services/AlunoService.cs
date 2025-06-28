@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using InterfocusConsole.Models;
 using InterfocusConsole.Repository;
 
@@ -12,7 +13,7 @@ namespace InterfocusConsole.Services
         {
             this.repository = repository;
         }
-        
+
         public bool Cadastrar(Aluno aluno, out List<MensagemErro> mensagens)
         {
             var valido = Validar(aluno, out mensagens);
@@ -92,28 +93,36 @@ namespace InterfocusConsole.Services
             return repository.ConsultarPorId<Aluno>(codigo);
         }
 
-        public Aluno Editar(Aluno aluno)
+        public Aluno Editar(Aluno aluno, out List<MensagemErro> mensagens)
         {
             var existente = ConsultarPorCodigo(aluno.Id);
 
             if (existente == null)
             {
+                mensagens = null;
                 return null;
             }
             existente.Nome = aluno.Nome;
+            existente.Email = aluno.Email;
+            existente.Cep = aluno.Cep;
 
-            try
+            var valido = Validar(aluno, out mensagens);
+            if (valido)
             {
-                using var transacao = repository.IniciarTransacao();
-                repository.Salvar(existente);
-                repository.Commit();
-                return existente;
+                try
+                {
+                    using var transacao = repository.IniciarTransacao();
+                    repository.Salvar(existente);
+                    repository.Commit();
+                    return existente;
+                }
+                catch (Exception)
+                {
+                    repository.Rollback();
+                    return null;
+                }
             }
-            catch (Exception)
-            {
-                repository.Rollback();
-                return null;
-            }
+            return null;
         }
 
         public Aluno Deletar(long codigo)

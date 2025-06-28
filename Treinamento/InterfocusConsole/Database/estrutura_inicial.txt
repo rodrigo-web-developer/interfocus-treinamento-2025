@@ -17,6 +17,7 @@ create table alunos (
 	email text,
 	datanascimento date,
 	datacadastro timestamp not null default now(),
+	cep varchar(20),
 	primary key (id)
 );
 
