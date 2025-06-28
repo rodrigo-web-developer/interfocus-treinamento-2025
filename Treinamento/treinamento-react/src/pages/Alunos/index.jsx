@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { listarAlunos } from "../../services/alunoService";
+import { useNavigation } from "simple-react-routing";
 
 export default function AlunosPage() {
     const [alunos, setAlunos] = useState([]);
 
     const [search, setSearch] = useState("");
+
+    const { navigateTo } = useNavigation();
 
     const fetchData = async () => {
         const resultado = await listarAlunos(search);
@@ -33,6 +36,10 @@ export default function AlunosPage() {
                 onChange={(e) =>
                     setSearch(e.target.value)
                 } />
+
+            <button
+                onClick={(e) => navigateTo(e, "/alunos/novo")}
+                type="button">Novo</button>
         </div>
         <div className="grid-cards">
             {alunos.map(a =>
@@ -42,11 +49,16 @@ export default function AlunosPage() {
 }
 
 function AlunoCard({ aluno }) {
-    return <div class="card">
+
+    const { navigateTo } = useNavigation();
+
+    return <div class="card"
+        onClick={(e) => navigateTo(e, "/alunos/edit/" + aluno.id)}
+    >
         <h4>{aluno.nome}</h4>
         <ul>
             <li>
-                <img height="72" src={aluno.foto}></img> 
+                <img height="72" src={aluno.foto}></img>
             </li>
             <li>
                 <strong>ID:</strong> {aluno.id}

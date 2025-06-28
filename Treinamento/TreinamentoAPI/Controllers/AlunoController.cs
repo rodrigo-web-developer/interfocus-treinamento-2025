@@ -40,7 +40,7 @@ namespace TreinamentoAPI.Controllers
         [HttpPut]
         public IActionResult Put([FromBody] Aluno aluno)
         {
-            var resultado = servico.Editar(aluno);
+            var resultado = servico.Editar(aluno, out _);
             if (resultado == null)
             {
                 return NotFound();
