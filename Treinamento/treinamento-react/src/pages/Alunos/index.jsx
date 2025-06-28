@@ -24,8 +24,6 @@ export default function AlunosPage() {
         }
     }, [search]);
 
-    
-
     return <div>
         <h1>Alunos</h1>
         <div className="row">

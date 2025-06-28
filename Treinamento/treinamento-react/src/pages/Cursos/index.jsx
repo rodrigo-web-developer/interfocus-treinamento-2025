@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react"
 import { getCursoById, listarCursos, salvarCurso } from "../../services/cursoService";
 import Modal from "../../components/Modal";
+import { useRouter } from "simple-react-routing"
 
 export default function CursosPage() {
 
     const [cursos, setCursos] = useState([]);
 
+    const { pathParams } = useRouter();
+
     const [open, setOpen] = useState(false);
 
     const [selected, setSelected] = useState(null);
 
-    const [search, setSearch] = useState("");
+    const params = new URLSearchParams(window.location.search);
+
+    const [search, setSearch] = useState(params.get("q"));
 
     const fetchData = async () => {
         const resultado = await listarCursos(search);
@@ -43,6 +48,12 @@ export default function CursosPage() {
     }
 
     useEffect(() => {
+        if (pathParams["id"]) {
+            selecionarLinha({ id: pathParams["id"] })
+        }
+    }, [])
+
+    useEffect(() => {
         fetchData();
     }, [search]);
 
@@ -62,7 +73,7 @@ export default function CursosPage() {
             <input name="pesquisa"
                 type="search"
                 value={search}
-                onChange={(e) => 
+                onChange={(e) =>
                     setSearch(e.target.value)
                 }
             />

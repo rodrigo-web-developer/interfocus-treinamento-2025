@@ -4,6 +4,7 @@ import CursosPage from './pages/Cursos';
 import { Layout } from './components/Layout';
 import { BrowserRouter } from 'simple-react-routing';
 import AlunosPage from './pages/Alunos';
+import AlunoCadastroPage from './pages/Alunos/Cadastro';
 
 class Aluno { }
 
@@ -32,10 +33,21 @@ function App() {
     component: <HomePage></HomePage>
   }, {
     path: "cursos",
-    component: <CursosPage></CursosPage>
+    component: <CursosPage></CursosPage>,
+    children: [{
+      path: "edit/:id", // cursos/edit/123
+      component: <CursosPage></CursosPage>
+    }]
   }, {
     path: "alunos",
-    component: <AlunosPage></AlunosPage>
+    component: <AlunosPage></AlunosPage>,
+    children: [{
+      path: "novo",
+      component: <AlunoCadastroPage></AlunoCadastroPage>
+    }, {
+      path: "edit/:id",
+      component: <AlunoCadastroPage></AlunoCadastroPage>
+    }]
   }]}>
     <Layout></Layout>
   </BrowserRouter>

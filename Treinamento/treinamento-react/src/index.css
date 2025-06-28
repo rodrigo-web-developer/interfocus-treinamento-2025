@@ -102,7 +102,8 @@ form {
     padding-top: 1rem;
 }
 
-form input, form textarea {
+form input,
+form textarea {
     width: 100%;
 }
 
@@ -125,13 +126,13 @@ form select:invalid {
 }
 
 .grid-cards img {
-  border-radius: 50%;
-  border: 1px solid black;
-  min-width: 72px;
+    border-radius: 50%;
+    border: 1px solid black;
+    min-width: 72px;
 }
 
 main {
-  padding: 16px 16px 24px 16px;
+    padding: 16px 16px 24px 16px;
 }
 
 .card li:has(img) {
@@ -179,8 +180,19 @@ select {
     gap: 8px;
 }
 
+.row-end {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 8px;
+}
+
 .row input {
     flex: 1;
+    padding: 8px;
+}
+
+.column input {
     padding: 8px;
 }
 
@@ -219,13 +231,34 @@ nav ul {
 
 nav li {
     padding: 8px 4px;
+    color: white;
+}
+
+nav a:active,
+nav a:visited {
+    color: inherit;
+}
+
+nav a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 8px 4px;
 }
 
 nav {
     width: 100%;
     background-color: #999;
+    height: fit-content;
 }
 
 nav li:hover {
     background-color: white;
+    color: black;
+}
+
+
+.column {
+    display: flex;
+    flex-direction: column;
 }
