@@ -7,23 +7,24 @@
     margin: 0;
 }
 
-body {
+body, label, p, strong {
     font-family: 'Courier New', Courier, monospace;
 }
 
-h2 {
+h1, h2, h3, h4, h5, h6 {
     font-family: Arial, Helvetica, sans-serif;
-    color: blue;
 }
 
 table {
     background-color: #f9f900;
     color: white;
     width: 100%;
+    border-collapse: collapse;
+    border-width: 0px;
 }
 
 thead {
-    background-color: #6538d5;
+    background-color: #00000b;
 }
 
 thead th {
@@ -32,20 +33,25 @@ thead th {
 }
 
 tbody td {
-    padding: 4px;
+    padding: 10px 4px;
     color: black;
 }
 
 tbody tr:hover {
-    background-color: #999;
+    background-color: #abaaab;
     cursor: pointer;
+}
+
+tbody tr {
+    background-color: white;
+    border-bottom: 1px solid black;
 }
 
 button {
     background-color: blue;
     color: white;
     font-weight: bold;
-    padding: 16px;
+    padding: 12px 16px;
     border-radius: 8px;
     border-width: 0;
 }
@@ -137,6 +143,10 @@ form select:invalid:focus {
     min-width: 72px;
 }
 
+.grid-cards .card:hover img {
+    border: 1px solid white;
+}
+
 main {
     padding: 16px 16px 24px 16px;
 }
@@ -187,6 +197,7 @@ select {
     align-items: center;
     justify-content: space-between;
     gap: 8px;
+    padding: 8px 0px;
 }
 
 .row-end {
@@ -239,7 +250,7 @@ nav ul {
 }
 
 nav li {
-    padding: 8px 4px;
+    padding: 16px 4px;
     color: white;
 }
 
@@ -253,11 +264,14 @@ nav a {
     font-weight: 500;
     font-size: 18px;
     padding: 8px 4px;
+    font-weight: 600;
 }
+
+
 
 nav {
     width: 100%;
-    background-color: #999;
+    background-color: #00000b;
     height: fit-content;
 }
 
@@ -266,6 +280,10 @@ nav li:hover {
     color: black;
 }
 
+footer {
+    width: 100%;
+    text-align: center;
+}
 
 .column {
     display: flex;

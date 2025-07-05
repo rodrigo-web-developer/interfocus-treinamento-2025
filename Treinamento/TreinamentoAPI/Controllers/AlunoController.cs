@@ -18,7 +18,7 @@ namespace TreinamentoAPI.Controllers
         [HttpGet]
         public IActionResult Get(string pesquisa)
         {
-            return string.IsNullOrEmpty(pesquisa) ? 
+            return string.IsNullOrEmpty(pesquisa) ?
                 Ok(servico.Consultar()) :
                 Ok(servico.Consultar(pesquisa));
         }
@@ -40,10 +40,15 @@ namespace TreinamentoAPI.Controllers
         [HttpPut]
         public IActionResult Put([FromBody] Aluno aluno)
         {
-            var resultado = servico.Editar(aluno, out _);
+            var resultado = servico.Editar(aluno, out List<MensagemErro> mensagens);
             if (resultado == null)
             {
-                return NotFound();
+                if (mensagens == null)
+                    return NotFound();
+                else
+                {
+                    return UnprocessableEntity(mensagens);
+                }
             }
             return Ok(resultado);
         }
